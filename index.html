@@ -36,13 +36,7 @@
       arjs="sourceType: webcam; trackingMethod: best;"
       vr-mode-ui="enabled: false"
     >
-      <a-assets>
-        <!-- Preload all 30 GIFs -->
-        ${[...Array(30)].map((_, i) => { const day = i + 1; return `<img
-          id="verse${day}"
-          src="./Assets/gifs/verse${day}.gif"
-        />`; }).join('\n')}
-      </a-assets>
+      <a-assets id="assetsContainer"></a-assets>
 
       <a-nft
         type="nft"
@@ -65,6 +59,14 @@
     </a-scene>
 
     <script>
+      const assetsContainer = document.getElementById("assetsContainer");
+      for (let i = 1; i <= 30; i++) {
+        const img = document.createElement("img");
+        img.setAttribute("id", `verse${i}`);
+        img.setAttribute("src", `./Assets/gifs/verse${i}.gif`);
+        assetsContainer.appendChild(img);
+      }
+
       window.addEventListener("load", () => {
         const today = new Date();
         const dayOfMonth = today.getDate();
